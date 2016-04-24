@@ -1,5 +1,5 @@
 {
-  "name": "loopback-redux-react-boilerplate",
+  "name": "twitter-app",
   "version": "1.0.1",
   "main": "server/server.js",
   "scripts": {
@@ -17,6 +17,7 @@
     "react-transform"
   ],
   "dependencies": {
+    "bcrypt": "^0.8.6",
     "bootstrap": "^3.3.6",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
@@ -29,6 +30,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.1.0",
     "loopback-datasource-juggler": "^2.39.0",
+    "morgan": "^1.7.0",
     "react": "^15.0.0",
     "react-addons-pure-render-mixin": "^15.0.1",
     "react-bootstrap": "^0.29.2",
