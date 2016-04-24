@@ -1,9 +1,9 @@
 // Define an action type, it's used for reducer switching
-export const GET_STARTED = 'GET_STARTED';
+export const FETCH_TWEETS = 'FETCH_TWEETS';
 
 // Define the corresponding action creator, must return an object
-export function getStarted() {
+export function fetchTweets() {
 	return {
-		type: GET_STARTED
+		type: FETCH_TWEETS
 	};
 }

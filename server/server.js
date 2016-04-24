@@ -9,17 +9,17 @@ var webpackHotMiddleware = require('webpack-hot-middleware');
 var config = require(`../webpack.config.${mode}`);
 var compiler = webpack(config);
 
-if(mode === env.DEVELOPMENT) {
-    // only need in development
-    app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));  
+if (mode === env.DEVELOPMENT) {
+  // only need in development
+  app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
 }
 app.use(webpackHotMiddleware(compiler));
 
 boot(app, __dirname);
 
-app.start = function() {
+app.start = function () {
   // start the web server
-  return app.listen(function() {
+  return app.listen(function () {
     app.emit('started');
     var baseUrl = app.get('url').replace(/\/$/, '');
     console.log('Web server listening at: %s', baseUrl);
