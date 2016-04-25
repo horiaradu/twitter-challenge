@@ -9,5 +9,8 @@ export default connect(
 )(Login);
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    email: state.get('email', ''),
+    password: state.get('password', '')
+  };
 }
