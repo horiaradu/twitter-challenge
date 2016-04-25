@@ -53,6 +53,7 @@ export function loginRequest() {
 }
 
 export function loginSuccess(email, token) {
+  localStorage.setItem('auth', {email, token});
   return {
     type: LOGIN_SUCCESS,
     token,
@@ -61,6 +62,7 @@ export function loginSuccess(email, token) {
 }
 
 export function loginFailure(error) {
+  localStorage.removeItem('auth');
   return {
     type: LOGIN_FAILURE,
     status: error.response.status,
