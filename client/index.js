@@ -5,7 +5,7 @@ import {Router, Route, hashHistory} from 'react-router';
 import configureStore from './store/configure_store';
 import App from './containers/App';
 import DashboardContainer from './containers/DashboardContainer'
-import TweetsContainer from './containers/TweetsContainer'
+import TweetsContainer from './containers/TweetsAppContainer'
 import LoginContainer from './containers/LoginContainer'
 import {requireAuthentication} from './containers/AuthenticatedContainer'
 import {loginSuccess} from './actions'
