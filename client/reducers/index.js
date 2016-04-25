@@ -1,16 +1,32 @@
-import {Map, List} from 'immutable';
-import {FETCH_TWEETS} from '../actions'
+import {Map, fromJS} from 'immutable';
+import {REQUEST_TWEETS, RECEIVED_TWEETS} from '../actions'
 
-function fetchTweets(state) {
-  return state.set('tweets', List([
-    {id: 1, text: 'foo'}
-  ]));
+function requestTweets(state, action) {
+  return state.set('tweets',
+    Map({
+      query: action.query,
+      isFetching: true
+    })
+  );
+}
+
+function receiveTweets(state, action) {
+  return state.set('tweets',
+    Map({
+      query: action.query,
+      isFetching: false,
+      items: fromJS(action.tweets),
+      lastUpdated: action.receivedAt
+    })
+  );
 }
 
 export default function (state = Map(), action) {
   switch (action.type) {
-    case FETCH_TWEETS:
-      return fetchTweets(state);
+    case REQUEST_TWEETS:
+      return requestTweets(state, action);
+    case RECEIVED_TWEETS:
+      return receiveTweets(state, action);
   }
   return state;
 };

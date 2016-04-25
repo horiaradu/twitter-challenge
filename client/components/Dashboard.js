@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
       <div>
         <Link to={'/tweets'}
               className="btn btn-default"
-              onClick={() => this.props.fetchTweets()}>
+              onClick={() => this.props.fetchTweets('nba')}>
           Tweets
         </Link>
       </div>

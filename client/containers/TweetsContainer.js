@@ -10,6 +10,6 @@ export default connect(
 
 function mapStateToProps(state) {
   return {
-    tweets: state.get('tweets', [])
+    tweets: state.getIn(['tweets', 'items'], [])
   };
 }

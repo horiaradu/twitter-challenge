@@ -14,7 +14,7 @@ class Tweets extends React.Component {
     return (
       <ListGroup>
         {this.props.tweets.map(tweet =>
-          <ListGroupItem>{tweet.text}</ListGroupItem>)}
+          <ListGroupItem key={tweet.get('id')}>{tweet.get('text')}</ListGroupItem>)}
       </ListGroup>
     );
   }
