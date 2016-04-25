@@ -43,7 +43,8 @@ function loginFailed(state, action) {
   return state.set('auth',
     Map({
       isAuthenticated: false,
-      statusTest: action.statusText
+      status: action.status,
+      statusText: action.statusText
     })
   );
 }

@@ -2,7 +2,8 @@ require('../styles/App.less');
 
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, Button, Alert} from 'react-bootstrap';
+import {isEmail} from '../utils'
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,27 +20,64 @@ class Login extends React.Component {
   }
 
   login(event) {
-    event.preventDefault();
-    this.props.login(this.props.email, this.props.password, '/');
+    if (this.valid()) {
+      event.preventDefault();
+      this.props.login(this.props.email, this.props.password, '/');
+    }
+  }
+
+  valid() {
+    return this.props.email && this.props.password && isEmail(this.props.email);
+  }
+
+  errorText() {
+    return this.props.authStatus === 401 ?
+      'Invalid email and/or password.' :
+      this.props.authError;
   }
 
   render() {
     return (
-      <form>
-        <FormGroup controlId="email">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl type="email" value={this.props.email} onChange={this.changeEmail.bind(this)}/>
-        </FormGroup>
-        <FormGroup controlId="formControlsPassword">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl type="password" value={this.props.password} onChange={this.changePassword.bind(this)}/>
-        </FormGroup>
+      <div className="col-md-4 col-md-offset-4">
+        {this.props.authError ?
+          <Alert bsStyle="danger">
+            {this.errorText()}
+          </Alert> :
+          ''
+        }
+        <form>
+          <FormGroup controlId="email">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl type="email" value={this.props.email}
+                         onChange={this.changeEmail.bind(this)} required/>
+          </FormGroup>
+          <FormGroup controlId="formControlsPassword">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl type="password" value={this.props.password}
+                         onChange={this.changePassword.bind(this)} required/>
+          </FormGroup>
 
-        <Button type="submit" bsStyle="primary"
-                onClick={this.login.bind(this)}>
-          Submit
-        </Button>
-      </form>
+          <div className="clearfix">
+            <span className="pull-right forgot-password">Forgot password?</span>
+          </div>
+
+          <Button type="submit" bsStyle="primary" className="full-width"
+                  onClick={this.login.bind(this)}>
+            Log In
+          </Button>
+
+          <div className="separator">
+            <hr/>
+          </div>
+
+          <div className="clearfix">
+            <span className="pull-left pt-6">Don't have an account?</span>
+            <Button bsStyle="default" className="pull-right">
+              Sign up
+            </Button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

@@ -11,9 +11,9 @@ import {requireAuthentication} from './containers/AuthenticatedContainer'
 import {loginSuccess} from './actions'
 
 const store = configureStore();
-const auth = localStorage.getItem('auth');
-if (auth) {
-  store.dispatch(loginSuccess(auth))
+const token = localStorage.getItem('token');
+if (token) {
+  store.dispatch(loginSuccess(token))
 }
 
 const routes = <Route component={App}>

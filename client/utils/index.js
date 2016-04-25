@@ -7,3 +7,8 @@ export function checkHttpStatus(response) {
     throw error;
   }
 }
+
+export function isEmail(email) {
+  return !!/.+@.+/i
+    .test(email);
+}

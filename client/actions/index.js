@@ -52,17 +52,16 @@ export function loginRequest() {
   };
 }
 
-export function loginSuccess(email, token) {
-  localStorage.setItem('auth', {email, token});
+export function loginSuccess(token) {
+  localStorage.setItem('token', token);
   return {
     type: LOGIN_SUCCESS,
-    token,
-    email
+    token
   };
 }
 
 export function loginFailure(error) {
-  localStorage.removeItem('auth');
+  localStorage.removeItem('token');
   return {
     type: LOGIN_FAILURE,
     status: error.response.status,
@@ -87,7 +86,7 @@ export function login(email, password, redirect = '/') {
       .then(response => {
         const token = response.id;
         if (token) {
-          dispatch(loginSuccess(email, token));
+          dispatch(loginSuccess(token));
           hashHistory.push(redirect);
         } else {
           dispatch(loginFailure({

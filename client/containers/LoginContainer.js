@@ -11,6 +11,8 @@ export default connect(
 function mapStateToProps(state) {
   return {
     email: state.get('email', ''),
-    password: state.get('password', '')
+    password: state.get('password', ''),
+    authError: state.getIn(['auth', 'statusText'], null),
+    authStatus: state.getIn(['auth', 'status'], null)
   };
 }
