@@ -14,7 +14,8 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
@@ -35,5 +36,13 @@
   "Twitter": {
     "dataSource": null,
     "public": true
+  },
+  "user": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Email": {
+    "dataSource": "gmail",
+    "public": false
   }
 }

@@ -15,6 +15,9 @@ if (mode === env.DEVELOPMENT) {
 }
 app.use(webpackHotMiddleware(compiler));
 
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 boot(app, __dirname);
 
 app.start = () =>
