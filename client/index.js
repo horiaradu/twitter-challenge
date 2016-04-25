@@ -6,10 +6,12 @@ import configureStore from './store/configure_store';
 import App from './containers/App';
 import DashboardContainer from './containers/DashboardContainer'
 import TweetsContainer from './containers/TweetsContainer'
+import LoginContainer from './containers/LoginContainer'
 
 const store = configureStore();
 
 const routes = <Route component={App}>
+  <Route path="login" component={LoginContainer}/>
   <Route path="tweets" component={TweetsContainer}/>
   <Route path="/" component={DashboardContainer}/>
 </Route>;
