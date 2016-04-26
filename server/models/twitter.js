@@ -1,5 +1,8 @@
 module.exports = function (Twitter) {
-  Twitter.search = function (query) {
+  'use strict';
+  const uri = require('urijs');
+
+  Twitter.search = function (query, count, maxId) {
     const client = new require('twitter')({
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -7,12 +10,36 @@ module.exports = function (Twitter) {
       access_token_secret: ''
     });
 
+    let queryParams = {q: query};
+    if (count) queryParams = Object.assign(queryParams, {count});
+    if (maxId) queryParams = Object.assign(queryParams, {max_id: maxId});
+
     return new Promise((resolve, reject) => {
       client.get('search/tweets.json',
-        {q: query},
-        (error, tweets, response) => error ? reject(error) : resolve(tweets)
+        queryParams,
+        (error, tweets, response) => error ? reject(error) : resolve(formatResponse(tweets))
       );
     });
+
+    function formatResponse(searchAPIResponse) {
+      let response = {
+        statuses: searchAPIResponse.statuses,
+        search_metadata: Object.assign({}, searchAPIResponse.search_metadata)
+      };
+
+      delete response.search_metadata.refresh_url;
+      const nextMaxId = uri.parseQuery(response.search_metadata.next_results).max_id;
+
+      response.search_metadata.next_results = uri('')
+        .query({
+          query,
+          count,
+          maxId: nextMaxId
+        })
+        .toString();
+
+      return response;
+    }
   };
 
   Twitter.remoteMethod(
@@ -20,7 +47,9 @@ module.exports = function (Twitter) {
     {
       description: 'Search tweets',
       accepts: [
-        {arg: 'query', type: 'string', http: {source: 'query'}, required: true}
+        {arg: 'query', type: 'string', http: {source: 'query'}, required: true},
+        {arg: 'count', type: 'number', http: {source: 'query'}, required: false},
+        {arg: 'maxId', type: 'number', http: {source: 'query'}, required: false}
       ],
       returns: {type: 'object', root: true},
       http: {verb: 'get'}

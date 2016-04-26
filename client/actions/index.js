@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import {checkHttpStatus} from '../utils';
 import {hashHistory} from 'react-router';
+import uri from 'urijs';
 
 // Define an action type, it's used for reducer switching
 export const REQUEST_TWEETS = 'REQUEST_TWEETS';
@@ -25,24 +26,32 @@ export function requestTweets(query) {
   };
 }
 
-export function receiveTweets(query, tweets) {
+export function receiveTweets(query, tweets, nextResults) {
   return {
     type: RECEIVED_TWEETS,
     query,
     tweets: tweets,
-    receivedAt: Date.now()
+    nextResults
   }
 }
 
 export function fetchTweets(query) {
-  return function (dispatch) {
+  const baseUrl = '/api/twitter/search';
+  return function (dispatch, getState) {
     dispatch(requestTweets(query));
 
-    return fetch(`/api/twitter/search?query=${query}`)
+    return fetch(nextUrl(getState()))
       .then(response => response.json())
-      .then(json =>
-        dispatch(receiveTweets(query, json.statuses))
-      );
+      .then(json => {
+        dispatch(receiveTweets(query, json.statuses, json.search_metadata.next_results));
+      });
+  };
+
+  function nextUrl(state) {
+    const nextQuery = state.getIn(['tweets', 'nextResults']);
+    return nextQuery ?
+      `${baseUrl}${nextQuery}` :
+      uri(baseUrl).query({query, count: 20}).toString()
   }
 }
 

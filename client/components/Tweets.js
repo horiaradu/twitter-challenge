@@ -16,26 +16,29 @@ class Tweets extends React.Component {
     return partition(this.props.tweets, List());
 
     function partition(tweets, acc) {
-      console.log(tweets);
       if (tweets.isEmpty()) {
         return acc;
       } else {
         return partition(tweets.skip(3), acc.push(tweets.take(3)));
       }
     }
+  }
 
+  keyForGroup(group) {
+    return group.reduce(
+      (key, tweet) => `${key}${tweet.get('id')}`,
+      ''
+    );
   }
 
   render() {
     return (
       <div>
         {this.tweetGroups().map(group =>
-          <div>
+          <div key={this.keyForGroup(group)}>
             {group.map(tweet =>
-              <div>
-                <div className="col-md-4">
-                  <Tweet tweet={tweet} key={tweet.get('id')}/>
-                </div>
+              <div className="col-md-4">
+                <Tweet tweet={tweet} key={tweet.get('id')}/>
               </div>
             )}
             <Clearfix visibleLgBlock visibleMdBlock/>

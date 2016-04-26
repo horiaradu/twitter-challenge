@@ -1,24 +1,30 @@
-import {Map, fromJS} from 'immutable';
+import {Map, List, fromJS} from 'immutable';
 import {REQUEST_TWEETS, RECEIVED_TWEETS, SET_STATE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from '../actions'
 
 function requestTweets(state, action) {
-  return state.set('tweets',
-    Map({
-      query: action.query,
-      isFetching: true
-    })
+  return state.update(
+    'tweets',
+    Map(),
+    value => value.merge(Map({query: action.query, isFetching: true}))
   );
 }
 
 function receiveTweets(state, action) {
-  return state.set('tweets',
-    Map({
-      query: action.query,
-      isFetching: false,
-      items: fromJS(action.tweets),
-      lastUpdated: action.receivedAt
-    })
-  );
+  return state
+    .update(
+      'tweets',
+      Map(),
+      value => value.merge(Map({
+        query: action.query,
+        isFetching: false,
+        nextResults: action.nextResults
+      }))
+    )
+    .updateIn(
+      ['tweets', 'items'],
+      List(),
+      items => items.concat(fromJS(action.tweets))
+    );
 }
 
 function requestLogin(state, action) {
