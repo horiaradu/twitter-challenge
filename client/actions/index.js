@@ -10,6 +10,7 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SET_STATE = 'SET_STATE';
+export const LOGOUT = 'LOGOUT';
 
 // Define the corresponding action creator, must return an object
 export function setState(state) {
@@ -108,4 +109,11 @@ export function login(email, password, redirect = '/') {
       })
       .catch(error => dispatch(loginFailure(error)));
   }
+}
+
+export function logout() {
+  localStorage.removeItem('token');
+  return {
+    type: LOGOUT
+  };
 }

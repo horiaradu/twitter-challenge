@@ -1,5 +1,13 @@
 import {Map, List, fromJS} from 'immutable';
-import {REQUEST_TWEETS, RECEIVED_TWEETS, SET_STATE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from '../actions'
+import {
+  REQUEST_TWEETS,
+  RECEIVED_TWEETS,
+  SET_STATE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT
+} from '../actions'
 
 function requestTweets(state, action) {
   return state.merge(Map({
@@ -35,13 +43,16 @@ function requestLogin(state, action) {
 }
 
 function loginSucceeded(state, action) {
-  return state.set('auth',
-    Map({
-      isAuthenticated: true,
-      token: action.token,
-      email: action.email
-    })
-  );
+  return state
+    .set('auth',
+      Map({
+        isAuthenticated: true,
+        token: action.token,
+        email: action.email
+      })
+    )
+    .delete('email')
+    .delete('password');
 }
 
 function loginFailed(state, action) {
@@ -79,6 +90,8 @@ export default function (state = initialState(), action) {
       return loginSucceeded(state, action);
     case LOGIN_FAILURE:
       return loginFailed(state, action);
+    case LOGOUT:
+      return initialState();
   }
   return state;
 };
