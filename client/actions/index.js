@@ -50,11 +50,13 @@ export function fetchTweets(query) {
   };
 
   function nextUrl(state) {
-    const nextQuery = state.getIn(['tweets', 'nextResults']);
+    const nextQuery = uri.parseQuery(state.getIn(['tweets', 'nextResults']));
+    console.log(nextQuery);
     const baseUrl = state.getIn(['tweets', 'baseUrl']);
-    return nextQuery ?
-      `${baseUrl}${nextQuery}` :
-      uri(baseUrl).query({query, count: 20}).toString()
+
+    return uri(baseUrl)
+      .query(Object.assign({query, count: 20}, nextQuery, {access_token: state.getIn(['auth', 'token'])}))
+      .toString();
   }
 }
 
