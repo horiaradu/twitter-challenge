@@ -40,7 +40,7 @@ class TweetsApp extends React.Component {
           <div>
             <Tweets tweets={this.props.tweets}/>
             <Button bsStyle="default" className={this.moreBtnClasses()}
-                    onClick={() => this.props.fetchTweets(this.query)}>
+                    onClick={() => this.props.canFetch && this.props.fetchTweets(this.query)}>
               <i className={this.moreIconClasses()}/> more...
             </Button>
           </div>
