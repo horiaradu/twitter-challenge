@@ -45,19 +45,6 @@ class Tweets extends React.Component {
       </div>
     );
   }
-
-  // render() {
-  //   return (
-  //     <div>
-  //       {this.props.tweets.map(tweet =>
-  //         <div>
-  //           <Tweet tweet={tweet} key={tweet.get('id')} className="col-md-4"/>
-  //           <Clearfix visibleSmBlock><code>&lt;{'Clearfix visibleSmBlock'} /&gt;</code></Clearfix>
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
-  // }
 }
 
 export default Tweets;

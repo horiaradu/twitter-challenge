@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className="text-center mt-150">
-        <img src="assets/images/twitter-logo.png" width="150" className="clickable"
+        <img src="assets/images/twitter-logo.png" width="150" className="click-able"
              onClick={() => hashHistory.push('/tweets')}>
         </img>
       </div>
