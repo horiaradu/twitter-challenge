@@ -36,7 +36,6 @@ export function receiveTweets(query, tweets, nextResults) {
 }
 
 export function fetchTweets(query) {
-  const baseUrl = '/api/twitter/search';
   return function (dispatch, getState) {
     dispatch(requestTweets(query));
 
@@ -49,6 +48,7 @@ export function fetchTweets(query) {
 
   function nextUrl(state) {
     const nextQuery = state.getIn(['tweets', 'nextResults']);
+    const baseUrl = state.getIn(['tweets', 'baseUrl']);
     return nextQuery ?
       `${baseUrl}${nextQuery}` :
       uri(baseUrl).query({query, count: 20}).toString()

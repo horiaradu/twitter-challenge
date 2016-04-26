@@ -28,15 +28,19 @@ module.exports = function (Twitter) {
       };
 
       delete response.search_metadata.refresh_url;
-      const nextMaxId = uri.parseQuery(response.search_metadata.next_results).max_id;
+      delete response.search_metadata.next_results;
 
-      response.search_metadata.next_results = uri('')
-        .query({
-          query,
-          count,
-          maxId: nextMaxId
-        })
-        .toString();
+      const nextMaxId = uri.parseQuery(searchAPIResponse.search_metadata.next_results).max_id;
+      console.log(nextMaxId);
+      if (nextMaxId) {
+        response.search_metadata.next_results = uri('')
+          .query({
+            query,
+            count,
+            maxId: nextMaxId
+          })
+          .toString();
+      }
 
       return response;
     }
@@ -49,7 +53,7 @@ module.exports = function (Twitter) {
       accepts: [
         {arg: 'query', type: 'string', http: {source: 'query'}, required: true},
         {arg: 'count', type: 'number', http: {source: 'query'}, required: false},
-        {arg: 'maxId', type: 'number', http: {source: 'query'}, required: false}
+        {arg: 'maxId', type: 'string', http: {source: 'query'}, required: false}
       ],
       returns: {type: 'object', root: true},
       http: {verb: 'get'}

@@ -12,6 +12,7 @@ export default connect(
 function mapStateToProps(state) {
   return {
     tweets: state.getIn(['tweets', 'items'], List()),
-    isFetching: state.getIn(['tweets', 'isFetching'], false)
+    isFetching: state.getIn(['tweets', 'isFetching'], false),
+    canFetch: state.getIn(['tweets', 'canFetch'], true)
   };
 }
