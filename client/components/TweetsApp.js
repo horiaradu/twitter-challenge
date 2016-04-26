@@ -1,5 +1,3 @@
-require('../styles/App.less');
-
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Tweets from './Tweets'
@@ -21,16 +19,29 @@ class TweetsApp extends React.Component {
     return this.props.tweets.isEmpty() && this.props.isFetching;
   }
 
+  moreBtnClasses() {
+    return classNames(
+      'pull-right',
+      {disabled: !this.props.canFetch},
+    );
+  }
+
+  moreIconClasses() {
+    return this.props.isFetching ? 'fa fa-fw fa-lg fa-spin fa-spinner' : 'hidden';
+  }
+
   render() {
     return (
       <div>
         {this.fetchingTweets() ?
-          <div>Fetching tweets...</div> :
+          <div>
+            <i className="fa fa-fw fa-lg fa-spin fa-spinner"/> <span>Fetching tweets...</span>
+          </div> :
           <div>
             <Tweets tweets={this.props.tweets}/>
-            <Button bsStyle="default" className={classNames('pull-right', {disabled: !this.props.canFetch})}
+            <Button bsStyle="default" className={this.moreBtnClasses()}
                     onClick={() => this.props.fetchTweets(this.query)}>
-              more...
+              <i className={this.moreIconClasses()}/> more...
             </Button>
           </div>
         }

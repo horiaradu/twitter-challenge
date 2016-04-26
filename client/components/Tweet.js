@@ -1,5 +1,3 @@
-require('../styles/App.less');
-
 import React from 'react';
 import {Panel, Col, Image} from 'react-bootstrap';
 import PureRenderMixin from 'react-addons-pure-render-mixin';

@@ -10,6 +10,9 @@ import LoginContainer from './containers/LoginContainer'
 import {requireAuthentication} from './containers/AuthenticatedContainer'
 import {loginSuccess} from './actions'
 
+require('./styles/App.less');
+require('font-awesome/css/font-awesome.css');
+
 const store = configureStore();
 const token = localStorage.getItem('token');
 if (token) {

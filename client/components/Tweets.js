@@ -1,5 +1,3 @@
-require('../styles/App.less');
-
 import React from 'react';
 import Tweet from './Tweet';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
