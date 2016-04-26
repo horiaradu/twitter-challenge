@@ -1,6 +1,6 @@
 module.exports = function (app) {
   return app.models.User.create([
-      {email: 'horia.radu23@gmail.com', password: 'bubulina', emailVerified: true}
+      {email: process.env.DUMMY_USER, password: process.env.DUMMY_PASSWORD, emailVerified: true}
     ])
     .then((result) => console.log('created default user'));
 };
