@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
         <Navbar.Collapse>
           {this.props.isAuthenticated ?
             <Nav pullRight>
-              <NavDropdown eventKey={3} title={this.props.email}>
+              <NavDropdown eventKey={3} title={this.props.email} id="nav-dropdown">
                 <MenuItem eventKey={3.1} onClick={() => this.props.logout()}>Log Out</MenuItem>
               </NavDropdown>
             </Nav> :

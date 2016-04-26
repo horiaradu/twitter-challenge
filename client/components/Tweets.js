@@ -35,7 +35,7 @@ class Tweets extends React.Component {
         {this.tweetGroups().map(group =>
           <div key={this.keyForGroup(group)}>
             {group.map(tweet =>
-              <div className="col-md-4">
+              <div className="col-md-4" key={tweet.get('id')}>
                 <Tweet tweet={tweet} key={tweet.get('id')}/>
               </div>
             )}

@@ -22,6 +22,7 @@ class TweetsApp extends React.Component {
   moreBtnClasses() {
     return classNames(
       'pull-right',
+      'mr-10',
       {disabled: !this.props.canFetch},
     );
   }

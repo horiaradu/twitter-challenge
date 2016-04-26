@@ -1,6 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Link} from 'react-router';
+import {hashHistory} from 'react-router';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -10,12 +10,10 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        <Link to={'/tweets'}
-              className="btn btn-default"
-              onClick={() => this.props.fetchTweets('nba')}>
-          Tweets
-        </Link>
+      <div className="text-center mt-150">
+        <img src="assets/images/twitter-logo.png" width="150" className="clickable"
+             onClick={() => hashHistory.push('/tweets')}>
+        </img>
       </div>
     );
   }
