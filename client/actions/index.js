@@ -41,10 +41,12 @@ export function fetchTweets(query) {
     dispatch(requestTweets(query));
 
     return fetch(nextUrl(getState()))
+      .then(checkHttpStatus)
       .then(response => response.json())
       .then(json => {
         dispatch(receiveTweets(query, json.statuses, json.search_metadata.next_results));
-      });
+      })
+      .catch(error => dispatch(logout()));
   };
 
   function nextUrl(state) {

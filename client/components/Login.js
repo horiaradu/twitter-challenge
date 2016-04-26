@@ -39,7 +39,7 @@ class Login extends React.Component {
       <div className="col-md-4 col-md-offset-4">
         {this.props.authError ?
           <Alert bsStyle="danger">
-            {this.errorText()}
+            <i className="fa fa-fw fa-exclamation-circle"/>{this.errorText()}
           </Alert> :
           ''
         }
