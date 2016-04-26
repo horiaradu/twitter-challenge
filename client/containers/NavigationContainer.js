@@ -10,6 +10,7 @@ export default connect(
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.getIn(['auth', 'isAuthenticated'], false)
+    isAuthenticated: state.getIn(['auth', 'isAuthenticated'], false),
+    email: state.getIn(['auth', 'email'])
   };
 }

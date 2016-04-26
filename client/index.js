@@ -15,8 +15,9 @@ require('font-awesome/css/font-awesome.css');
 
 const store = configureStore();
 const token = localStorage.getItem('token');
+const email = localStorage.getItem('email')
 if (token) {
-  store.dispatch(loginSuccess(token))
+  store.dispatch(loginSuccess(email, token))
 }
 
 const routes = <Route component={App}>

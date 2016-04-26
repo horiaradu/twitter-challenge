@@ -1,7 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {hashHistory} from 'react-router';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -22,11 +22,13 @@ class Dashboard extends React.Component {
         <Navbar.Collapse>
           {this.props.isAuthenticated ?
             <Nav pullRight>
-              < NavItem eventKey={3} onClick={() => this.props.logout()}>Log Out</NavItem>
+              <NavDropdown eventKey={3} title={this.props.email}>
+                <MenuItem eventKey={3.1} onClick={() => this.props.logout()}>Log Out</MenuItem>
+              </NavDropdown>
             </Nav> :
             <Nav pullRight>
               <NavItem eventKey={1}>Sign Up</NavItem>
-              < NavItem eventKey={2} onClick={() => hashHistory.push('/login')}>Log In</NavItem>
+              <NavItem eventKey={2} onClick={() => hashHistory.push('/login')}>Log In</NavItem>
             </Nav>
           }
         </Navbar.Collapse>
