@@ -8,7 +8,7 @@ In order to be able to access the twitter API, you must create an app on [twitte
 
 For user registration and password recovery, it uses emails and thus you need an smtp server configured. For exmaple, you can use gmail.
 
-The frontend, is created with [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org/index.html).
+The frontend, is created with [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org/index.html), for the styling I used [bootstrap](getbootstrap.com/components/) and [font awesome](https://fortawesome.github.io/Font-Awesome/).
 
 ### Get Started
 - **Clone this repository**
@@ -45,6 +45,12 @@ GMAIL_AUTH_PASSWORD=
 # dummy username and password
 DUMMY_USER=
 ```
+
+### Missing features
+
+The email templates are not styled and the *email confirmation* and *sign up* are not created (however, they were not in scope).
+
+Since it was supposed to use a dummy user, I didn't go for a database, but went for an in-memory storage solution. At boot time a sample user configured in the environment variables. It's very easy to switch and use a database in the future.
 
 ### License
 
