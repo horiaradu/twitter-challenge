@@ -1,14 +1,19 @@
-# loopback-redux-react-boilerplate
+# Twitter Challenge
 
-A boilerplate for a Redux-React application using LoopBack
+A sample app which retrieves tweets and displays them.
+
+For backend, I created a REST API with [loopback](https://loopback.io/). The API documnetation can be found under /explorer/#. The authentication is done with access tokens. 
+
+In order to be able to access the twitter API, you must create an app on [twitter](https://apps.twitter.com/) in order to obtain credentials.
+
+For user registration and password recovery, it uses emails and thus you need an smtp server configured. For exmaple, you can use gmail.
+
+The frontend, is created with [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org/index.html).
 
 ### Get Started
-- **Clone this repository or use npm**
+- **Clone this repository**
 ```bash
-$ git clone https://github.com/tngan/loopback-redux-react-boilerplate.git
-```
-```bash
-$ npm install loopback-redux-react-boilerplate
+$ git clone git@github.com:horiaradu/twitter-challenge.git
 ```
 
 - **Install dependencies specified in package.json**
@@ -28,10 +33,18 @@ $ npm start
 
 - **npm run clean**: Removes the bundled files.
 
-### Built-in example
-A simple 'Hello World' Redux-React application is included in this boilerplate. You can find those files under `/client`.
+### Required environment variables
 
-Hot reloading is only applied in development mode. In production mode, the code base is pre-compiled and placed under `.build/dist`.
+```bash
+# twitter API credentials
+TWITTER_CONSUMER_KEY=
+TWITTER_CONSUMER_SECRET=
+# gmail credentials for sending out emails
+GMAIL_AUTH_USER=
+GMAIL_AUTH_PASSWORD=
+# dummy username and password
+DUMMY_USER=
+```
 
 ### License
 
