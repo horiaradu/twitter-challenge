@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
     return (
       <div className="text-center mt-150">
         <img src={logo} width="150" className="click-able"
-             onClick={() => hashHistory.push('/tweets')}>
+             onClick={() => hashHistory.push('/tweets?query=nba')}>
         </img>
       </div>
     );

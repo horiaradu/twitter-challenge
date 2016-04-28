@@ -27,6 +27,8 @@ module.exports = function (Twitter) {
         search_metadata: Object.assign({}, searchAPIResponse.search_metadata)
       };
 
+      console.log(searchAPIResponse.search_metadata);
+
       delete response.search_metadata.refresh_url;
       delete response.search_metadata.next_results;
 

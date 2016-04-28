@@ -8,11 +8,14 @@ class TweetsApp extends React.Component {
   constructor(props) {
     super(props);
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    this.query = '%23visma';
+  }
+
+  twitterQuery() {
+    return this.props.location.query.query;
   }
 
   componentWillMount() {
-    this.props.fetchTweets(this.query)
+    this.props.fetchTweets(this.twitterQuery())
   }
 
   fetchingTweets() {
@@ -41,7 +44,7 @@ class TweetsApp extends React.Component {
           <div>
             <Tweets tweets={this.props.tweets}/>
             <Button bsStyle="primary" className={this.moreBtnClasses()}
-                    onClick={() => this.props.canFetch && this.props.fetchTweets(this.query)}>
+                    onClick={() => this.props.canFetch && this.props.fetchTweets(this.twitterQuery())}>
               <i className={this.moreIconClasses()}/> more...
             </Button>
           </div>
