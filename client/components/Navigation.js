@@ -10,7 +10,6 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props.isAuthenticated);
     return (
       <Navbar fixedTop>
         <Navbar.Header>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Tweets from './Tweets'
-import {Button} from 'react-bootstrap';
+import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
 
 class TweetsApp extends React.Component {
@@ -34,6 +34,25 @@ class TweetsApp extends React.Component {
     return this.props.isFetching ? 'fa fa-fw fa-lg fa-spin fa-spinner' : 'hidden';
   }
 
+  button() {
+    return (
+      <Button bsStyle="primary" className={this.moreBtnClasses()}
+              onClick={() => this.props.canFetch && this.props.fetchTweets(this.twitterQuery())}>
+        <i className={this.moreIconClasses()}/> more...
+      </Button>
+    );
+  }
+
+  moreButton() {
+    return (
+      this.props.canFetch ?
+        this.button() :
+        <OverlayTrigger placement="top" overlay={<Tooltip>No more tweets available for this search.</Tooltip>}>
+          {this.button()}
+        </OverlayTrigger>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -43,10 +62,7 @@ class TweetsApp extends React.Component {
           </div> :
           <div>
             <Tweets tweets={this.props.tweets}/>
-            <Button bsStyle="primary" className={this.moreBtnClasses()}
-                    onClick={() => this.props.canFetch && this.props.fetchTweets(this.twitterQuery())}>
-              <i className={this.moreIconClasses()}/> more...
-            </Button>
+            {this.moreButton()}
           </div>
         }
       </div>

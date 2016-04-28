@@ -55,7 +55,6 @@ export function fetchTweets(query) {
 
   function nextUrl(state) {
     const nextQuery = uri.parseQuery(state.getIn(['tweets', 'nextResults']));
-    console.log(nextQuery);
     const baseUrl = state.getIn(['tweets', 'baseUrl']);
 
     return uri(baseUrl)
