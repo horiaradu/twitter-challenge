@@ -1,7 +1,7 @@
 .btn {
   border-radius: 0;
 
-  &, &:hover, &:focus {
+  &, &:hover, &:focus, &:active {
     border-color: @brand-success;
   }
 }
@@ -10,7 +10,7 @@
   background-color: @brand-success;
   border: none;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:active {
     border: none;
     background-color: @brand-success;
     opacity: 0.75;
@@ -19,4 +19,8 @@
 
 .btn-default {
   color: @brand-success;
+
+  &:hover, &:focus, &:active {
+    color: @brand-success;
+  }
 }

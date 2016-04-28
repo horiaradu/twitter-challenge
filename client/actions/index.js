@@ -11,6 +11,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SET_STATE = 'SET_STATE';
 export const LOGOUT = 'LOGOUT';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
+export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
+export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
 
 // Define the corresponding action creator, must return an object
 export function setState(state) {
@@ -122,5 +126,67 @@ export function logout() {
   localStorage.removeItem('token');
   return {
     type: LOGOUT
+  };
+}
+
+export function forgotPassword(email) {
+  return function (dispatch) {
+    return fetch(`/api/users/reset-password-request?email=${email}`, {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(checkHttpStatus)
+      .then(() => dispatch(resetPasswordSuccess()))
+      .catch(error => dispatch(resetPasswordFailure(error)));
+  }
+}
+
+export function resetPasswordSuccess() {
+  return {
+    type: RESET_PASSWORD_SUCCESS
+  };
+}
+
+export function resetPasswordFailure(error) {
+  return {
+    type: RESET_PASSWORD_FAILURE,
+    statusText: error.response.statusText
+  };
+}
+
+export function resetPassword(password, accessToken, redirect = '/login') {
+  return function (dispatch, getState) {
+    return fetch(`/api/users/reset-password?access_token=${accessToken}`, {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({confirmation: password, password: password})
+    })
+      .then(checkHttpStatus)
+      .then(() => {
+        dispatch(changePasswordSuccess());
+        hashHistory.push(redirect);
+      })
+      .catch(error => dispatch(changePasswordFailure(error)));
+  }
+}
+
+export function changePasswordSuccess() {
+  return {
+    type: CHANGE_PASSWORD_SUCCESS
+  };
+}
+
+export function changePasswordFailure(error) {
+  return {
+    type: CHANGE_PASSWORD_FAILURE,
+    statusText: error.response.statusText
   };
 }

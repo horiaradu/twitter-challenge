@@ -13,6 +13,7 @@ function mapStateToProps(state) {
     email: state.get('email', ''),
     password: state.get('password', ''),
     authError: state.getIn(['auth', 'statusText'], null),
-    authStatus: state.getIn(['auth', 'status'], null)
+    authStatus: state.getIn(['auth', 'status'], null),
+    passwordChangedSuccessful: state.getIn(['resetPassword', 'ok'], false)
   };
 }

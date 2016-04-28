@@ -31,7 +31,7 @@ module.exports = function (user) {
 
     user.app.models.Email.send({
       to: info.email,
-      from: info.email,
+      from: 'no-reply@twitterchallenge.com',
       subject: 'Password reset',
       html: html
     }, function (err) {

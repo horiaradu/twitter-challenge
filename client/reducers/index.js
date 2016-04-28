@@ -6,7 +6,11 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT
+  LOGOUT,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILURE
 } from '../actions'
 
 function requestTweets(state, action) {
@@ -52,7 +56,9 @@ function loginSucceeded(state, action) {
       })
     )
     .delete('email')
-    .delete('password');
+    .delete('password')
+    .set('resetPassword', Map())
+    .set('forgotPassword', Map());
 }
 
 function loginFailed(state, action) {
@@ -62,7 +68,9 @@ function loginFailed(state, action) {
       status: action.status,
       statusText: action.statusText
     })
-  );
+    )
+    .set('resetPassword', Map())
+    .set('forgotPassword', Map());
 }
 
 function initialState() {
@@ -74,6 +82,45 @@ function initialState() {
   });
 }
 
+function resetPasswordSuccess(state, action) {
+  return state
+    .set('forgotPassword', Map({
+      emailStatus: action.statusText,
+      ok: false
+    }))
+    .set('auth', Map())
+    .set('resetPassword', Map());
+}
+
+function resetPasswordFailure(state, action) {
+  return state
+    .set('forgotPassword', Map({
+      emailStatus: action.statusText,
+      ok: false
+    }))
+    .set('auth', Map())
+    .set('resetPassword', Map());
+}
+
+
+function changePasswordSuccess(state) {
+  return state.set('resetPassword', Map({
+      resetStatus: 'Your password has been reset',
+      ok: true
+    }))
+    .set('auth', Map())
+    .set('forgotPassword', Map());
+}
+
+
+function changePasswordFailure(state, action) {
+  return state.set('resetPassword', Map({
+      resetStatus: action.statusText,
+      ok: false
+    }))
+    .set('auth', Map())
+    .set('forgotPassword', Map());
+}
 export default function (state = initialState(), action) {
   switch (action.type) {
     case REQUEST_TWEETS:
@@ -83,7 +130,7 @@ export default function (state = initialState(), action) {
       return state.update('tweets', Map(),
         queryState => receiveTweets(queryState, action));
     case SET_STATE:
-      return state.merge(action.state);
+      return state.mergeDeep(action.state);
     case LOGIN_REQUEST:
       return requestLogin(state, action);
     case LOGIN_SUCCESS:
@@ -92,6 +139,14 @@ export default function (state = initialState(), action) {
       return loginFailed(state, action);
     case LOGOUT:
       return initialState();
+    case RESET_PASSWORD_SUCCESS:
+      return resetPasswordSuccess(state, action);
+    case RESET_PASSWORD_FAILURE:
+      return resetPasswordFailure(state, action);
+    case CHANGE_PASSWORD_SUCCESS:
+      return changePasswordSuccess(state);
+    case CHANGE_PASSWORD_FAILURE:
+      return changePasswordFailure(state, action);
   }
   return state;
 };

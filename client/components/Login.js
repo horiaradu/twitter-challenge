@@ -1,7 +1,8 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {FormGroup, ControlLabel, FormControl, Button, Alert} from 'react-bootstrap';
-import {isEmail} from '../utils'
+import {Link} from 'react-router';
+import {isEmail} from '../utils';
 
 class Login extends React.Component {
   constructor(props) {
@@ -43,6 +44,12 @@ class Login extends React.Component {
           </Alert> :
           ''
         }
+        {this.props.passwordChangedSuccessful ?
+          <Alert bsStyle="info">
+            Password changed successfully
+          </Alert> :
+          ''
+        }
         <form>
           <FormGroup controlId="email">
             <ControlLabel>Email</ControlLabel>
@@ -56,7 +63,7 @@ class Login extends React.Component {
           </FormGroup>
 
           <div className="clearfix">
-            <span className="pull-right forgot-password">Forgot password?</span>
+            <Link className="pull-right forgot-password" to="/forgot-password">Forgot password?</Link>
           </div>
 
           <Button type="submit" bsStyle="primary" className="full-width"
