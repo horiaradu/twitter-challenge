@@ -5,13 +5,14 @@ const path = require('path');
 const webpack = require('webpack');
 const env = require('./environment');
 const mode = process.env.NODE_ENV || env.DEVELOPMENT;
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require(`../webpack.config.${mode}`);
 const compiler = webpack(config);
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 if (mode === env.DEVELOPMENT) {
   // only need in development
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+
   app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
 } else {
   app.use(loopback.static(path.resolve(__dirname, '../.build/dist')));
