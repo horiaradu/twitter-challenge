@@ -1,6 +1,7 @@
 const loopback = require('loopback');
 const boot = require('loopback-boot');
 const app = module.exports = loopback();
+const path = require('path');
 const webpack = require('webpack');
 const env = require('./environment');
 const mode = process.env.NODE_ENV || env.DEVELOPMENT;
@@ -12,6 +13,8 @@ const compiler = webpack(config);
 if (mode === env.DEVELOPMENT) {
   // only need in development
   app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
+} else {
+  app.use(loopback.static(path.resolve(__dirname, '../.build/dist')));
 }
 app.use(webpackHotMiddleware(compiler));
 

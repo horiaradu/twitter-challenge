@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {hashHistory} from 'react-router';
+import logo from '../assets/images/twitter-logo.png';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className="text-center mt-150">
-        <img src="assets/images/twitter-logo.png" width="150" className="click-able"
+        <img src={logo} width="150" className="click-able"
              onClick={() => hashHistory.push('/tweets')}>
         </img>
       </div>
