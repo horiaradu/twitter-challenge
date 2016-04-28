@@ -37,6 +37,7 @@ GMAIL_AUTH_USER=
 GMAIL_AUTH_PASSWORD=
 # dummy username and password
 DUMMY_USER=
+DUMMY_PASSWORD=
 ```
 
 ### Missing features
