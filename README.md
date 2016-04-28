@@ -26,13 +26,6 @@ $ npm install
 $ npm start
 ```
 
-### Scripts
-- **npm run deploy**: Bundles the application into `.build/dist`.
-
-- **npm run start_prod**: Starts production server, make sure you have already deployed the application.
-
-- **npm run clean**: Removes the bundled files.
-
 ### Required environment variables
 
 ```bash
