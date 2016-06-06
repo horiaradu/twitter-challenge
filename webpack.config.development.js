@@ -20,13 +20,15 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['babel'],
+        loaders: ['react-hot', 'babel'],
         exclude: /node_modules/,
         include: path.join(__dirname, 'client')
-      }, {
+      },
+      {
         test: /\.json$/,
         loader: 'json'
-      }, {
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
       },
